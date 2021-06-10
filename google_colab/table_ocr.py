@@ -40,7 +40,7 @@ def output_to_csv (finalboxes, img):
 
                     if(out == ""):
 
-                        out = pytesseract.image_to_string(erosion, config='--psm 7')
+                        out = pytesseract.image_to_string(erosion, config='--psm 12')
                         if(len(out[:-2]) >1):
                             out = ""
 
