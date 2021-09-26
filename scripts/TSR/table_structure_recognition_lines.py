@@ -14,8 +14,8 @@ def recognize_structure(img):
     #print("img_height", img_height, "img_width", img_width)
 
     # thresholding the image to a binary image
-    # thresh, img_bin = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-    img_bin = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 5, 5)
+    thresh, img_bin = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    # img_bin = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 5, 5)
 
     # inverting the image
     img_bin = 255 - img_bin
@@ -61,7 +61,7 @@ def recognize_structure(img):
     bitxor = cv2.bitwise_xor(img, img_vh)
     bitnot = cv2.bitwise_not(bitxor)
     # Plotting the generated image
-    cv2_imshow(bitnot)
+    # cv2_imshow(bitnot)
 
     # Detect contours for following box detection
     contours, hierarchy = cv2.findContours(img_vh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -105,12 +105,12 @@ def recognize_structure(img):
     #print("lencontours", len(contours))
     for c in contours:
         x, y, w, h = cv2.boundingRect(c)
-        print("x", x, "y", y, "w", w, "h", h)
+        # print("x", x, "y", y, "w", w, "h", h)
         if (w < 0.9*img_width and h < 0.9*img_height):
             image = cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
             box.append([x, y, w, h])
 
-    cv2_imshow(image)
+    # cv2_imshow(image)
 
     # Creating two lists to define row and column in which cell is located
     row = []
@@ -146,7 +146,7 @@ def recognize_structure(img):
     index = 0
     for i in range(len(row)):
         current = len(row[i])
-        print("len",len(row[i]))
+        # print("len",len(row[i]))
         if current > countcol:
             countcol = current
             index = i
