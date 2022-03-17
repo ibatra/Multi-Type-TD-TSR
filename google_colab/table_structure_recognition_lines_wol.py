@@ -28,7 +28,11 @@ def recognize_structure(img):
     # thresholding the image to a binary image
     #thresh, img_bin = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
     #img_bin = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,5,5)
-    thresh, img_bin = cv2.threshold(img, 180, 255, cv2.THRESH_BINARY)
+#     thresh, img_bin = cv2.threshold(img, 180, 255, cv2.THRESH_BINARY)
+    img_bin = np.empty(img.shape, img.dtype)
+    sauvola = doxapy.Binarization(doxapy.Binarization.Algorithms.ISAUVOLA)
+    sauvola.initialize(img)
+    sauvola.to_binary(img_bin, {"window": 20, "k": 0.01})
 
     cv2_imshow(img_bin)
 
